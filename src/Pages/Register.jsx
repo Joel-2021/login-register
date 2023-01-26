@@ -171,13 +171,15 @@ const Register = () => {
           <RadioGroup
             required
             style={{ display: "flex", flexDirection: "row" }}
+            // {...register("gender")}
           >
             <FormControlLabel
               value="female"
-              control={<Radio />}
+              control={<Radio/>}
               label="Female"
+              {...register('gender', { required: true })}
             />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
+            <FormControlLabel value="male" control={<Radio/>} label="Male"  {...register('gender', { required: true })}/>
           </RadioGroup>
           <FormControl variant="standard">
             <InputLabel>Country</InputLabel>
@@ -186,6 +188,7 @@ const Register = () => {
               onChange={handleCountry}
               name="country"
               required
+              {...register('country')}
             >
               <MenuItem value={"india"}>India</MenuItem>
               <MenuItem value={"usa"}>USA</MenuItem>
