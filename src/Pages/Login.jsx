@@ -1,18 +1,67 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { EmailOutlined, Password } from "@mui/icons-material";
+import {
+  Button,
+  FormControl,
+  TextField,
+  InputAdornment,
+  Typography,
+} from "@mui/material";
+import { Container } from "@mui/system";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
-    const navigate=useNavigate()
+  const navigate = useNavigate();
   return (
-    <div className="login">
-        <h1 className='header'>Login</h1>
-    <form action="submit" className='login-form'>
-        <input type="email" placeholder='e-mail' className='input-fields'/>
-        <input type="password" placeholder='password' className='input-fields'/>
-        <button>Login</button>
-    </form>
-        <p onClick={()=>{navigate('/register')}}>Sign In?</p>
-    </div>
-  )
-}
+    <Container
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection:'column'
+      }}
+    >
+     
+          <Typography variant="h4" align="center" gutterBottom marginTop="5%">
+            Login
+          </Typography>
+      
+        <FormControl>
+          <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EmailOutlined />
+                </InputAdornment>
+              ),
+              placeholder: "Email",
+            }}
+            variant="standard"
+          />
+          <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Password />
+                </InputAdornment>
+              ),
+              placeholder: "Password",
+            }}
+            variant="standard"
+          />
+          <Button variant="contained" color="success" style={{ margin: "5%" }}>
+            Login
+          </Button>
+        </FormControl>
+        <p
+          onClick={() => {
+            navigate("/register");
+          }}
+          style={{ textAlign: "center", cursor: "pointer", color: "red" }}
+        >
+          Sign In?
+        </p>
+    </Container>
+  );
+};
 
-export default Login
+export default Login;
