@@ -24,30 +24,29 @@ import {
   Button,
 } from "@mui/material";
 import React, { useRef, useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm} from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 const Register = () => {
   const pass = useRef();
+  const re_pass = useRef();
   const navigate = useNavigate();
+const [isPasswordValid, setIsPasswordValid] = useState(true);
 
+function passwordValidation(){
+  console.log("triggered")
+ if(pass.current.value===re_pass.current.value) setIsPasswordValid(true)
+ else setIsPasswordValid(false)
+}
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    getValues,
+    formState: { errors }
   } = useForm();
 
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  function passwordValidation() {
-    if (pass.current.value === getValues("password")) setIsPasswordValid(true);
-    else setIsPasswordValid(false);
-  }
-  function handleCountry(event) {}
   const onSubmit = (data) => {
-    if(isPasswordValid)
-     {
+   if(isPasswordValid) {
       console.log(data);
-     }
+    }
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -75,11 +74,13 @@ const Register = () => {
               ),
               // error:{isFormValid},
               placeholder: "Email",
-              
             }}
-            {...register("email",{required:true,pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/})}
-            error={errors.email? true :false}
-          helperText= {errors.email && "Enter Valid Email" }
+            {...register("email", {
+              required: true,
+              pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+            })}
+            error={errors.email ? true : false}
+            helperText={errors.email && "Enter Valid Email"}
             // name="email"
             // {...register('email')}
             // error={!!errors.email}
@@ -88,7 +89,6 @@ const Register = () => {
           />
           <TextField
             type={showPassword ? "text" : "password"}
-            
             required
             // error={user.password? false:true}
             InputProps={{
@@ -108,12 +108,14 @@ const Register = () => {
                   </IconButton>
                 </InputAdornment>
               ),
+              inputRef: re_pass,
               // error:{isFormValid},
               placeholder: "Password",
             }}
-            {...register("password",{required:true,minLength:6})}
-            error={errors.password? true :false}
-            helperText= {errors.password && "Set a Strong Password" }
+            {...register("password", { required: true, minLength: 6 })}
+            error={errors.password ? true : false}
+            helperText={errors.password && "Set a Strong Password"}
+            onChange={passwordValidation}            
             variant="standard"
           />
           <TextField
@@ -125,13 +127,11 @@ const Register = () => {
                 </InputAdornment>
               ),
               inputRef: pass,
-              color: !isPasswordValid ? "error" : "primary",
               placeholder: "Re-Enter Password",
-              onChange: () => {
-                passwordValidation();
-              },
             }}
-            
+            error={!isPasswordValid? true :false}
+            helperText={!isPasswordValid &&'Re-entered password is not matching'}
+            onChange={passwordValidation}
             variant="standard"
           />
           <TextField
@@ -145,9 +145,9 @@ const Register = () => {
               placeholder: "First Name",
             }}
             name="fName"
-            {...register("fName",{required:true})}
-            error={errors.fName? true :false}
-            helperText= {errors.fName && "Valid Name please" }
+            {...register("fName", { required: true })}
+            error={errors.fName ? true : false}
+            helperText={errors.fName && "Valid Name please"}
             variant="standard"
           />
           <TextField
@@ -161,9 +161,9 @@ const Register = () => {
 
               placeholder: "Last Name",
             }}
-            {...register("lName",{required:true})}
-            error={errors.lName? true :false}
-            helperText= {errors.lName && "Valid Last Name please" }
+            {...register("lName", { required: true })}
+            error={errors.lName ? true : false}
+            helperText={errors.lName && "Valid Last Name please"}
             variant="standard"
           />
 
@@ -171,24 +171,27 @@ const Register = () => {
           <RadioGroup
             required
             style={{ display: "flex", flexDirection: "row" }}
-            // {...register("gender")}
+            {...register("gender",{required:true})}
           >
             <FormControlLabel
               value="female"
-              control={<Radio/>}
+              control={<Radio />}
               label="Female"
-              {...register('gender', { required: true })}
+              {...register("gender", { required: true })}
             />
-            <FormControlLabel value="male" control={<Radio/>} label="Male"  {...register('gender', { required: true })}/>
+            <FormControlLabel
+              value="male"
+              control={<Radio />}
+              label="Male"
+              {...register("gender", { required: true })}
+            />
           </RadioGroup>
           <FormControl variant="standard">
             <InputLabel>Country</InputLabel>
             <Select
               placeholder="Country"
-              onChange={handleCountry}
               name="country"
-              required
-              {...register('country')}
+              {...register("country",{required:true})}
             >
               <MenuItem value={"india"}>India</MenuItem>
               <MenuItem value={"usa"}>USA</MenuItem>
