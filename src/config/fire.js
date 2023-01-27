@@ -7,15 +7,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import {
-  query,
-  getFirestore,
-  getDocs,
-  collection,
-  where,
-  addDoc,
-  Firestore,
-} from "firebase/firestore";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAUh2VKSZZ0f-WJqUjZ93YNgrj2FkJXBf0",

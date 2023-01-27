@@ -26,10 +26,12 @@ import {
 import React, { useRef, useState} from "react";
 import { useForm} from "react-hook-form";
 import { useNavigate} from "react-router-dom";
-import {registerWithEmailAndPassword} from '../config/fire'
+import {registerWithEmailAndPassword,auth} from '../config/fire'
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Register = () => {
   const pass = useRef();
+  const [user,loading,error] =useAuthState(auth)
   const re_pass = useRef();
   const navigate = useNavigate();
 const [isPasswordValid, setIsPasswordValid] = useState(true);
@@ -50,7 +52,7 @@ function passwordValidation(){
     if(isPasswordValid){
       registerWithEmailAndPassword(data)
       reset()
-      navigate('/')
+      if(user)navigate('/')
     }
   };
 
