@@ -1,5 +1,7 @@
 
 Login/Register Webapp
+
+
 This is a simple login and register webapp made using React and Material-UI for styling. Firebase is used as the database for user authentication and storage.
 
 Getting Started
@@ -11,7 +13,7 @@ You will need to have Node.js and npm (or yarn) installed on your machine.
 Installing
 Clone the repository to your local machine
 Copy code
-git clone https://github.com/your-username/login-register.git
+git clone https://github.com/joel-2021/login-register.git
 Navigate into the project directory
 Copy code
 cd login-register
