@@ -23,9 +23,11 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState} from "react";
 import { useForm} from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import {registerWithEmailAndPassword} from '../config/fire'
+
 const Register = () => {
   const pass = useRef();
   const re_pass = useRef();
@@ -40,12 +42,15 @@ function passwordValidation(){
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm();
-
+  
   const onSubmit = (data) => {
-   if(isPasswordValid) {
-      console.log(data);
+    if(isPasswordValid){
+      registerWithEmailAndPassword(data)
+      reset()
+      navigate('/')
     }
   };
 
